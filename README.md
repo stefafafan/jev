@@ -9,16 +9,16 @@ Currently supported providers:
 
 ## Install
 
-Build from this repository:
-
-```bash
-go build -o jev .
-```
-
-Or install the command from the module after a release is published:
+Install via go install:
 
 ```bash
 go install github.com/stefafafan/jev@latest
+```
+
+or build from source:
+
+```bash
+go build -o jev .
 ```
 
 ## Quick Start
