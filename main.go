@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime/debug"
+	"strings"
 	"syscall"
 	"time"
 
@@ -13,7 +15,7 @@ import (
 	"github.com/stefafafan/jev/internal/provider"
 )
 
-var version = "dev"
+var version string
 
 func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
@@ -28,9 +30,27 @@ func main() {
 		NewProvider: func(config provider.Config) (provider.Provider, error) {
 			return newProvider(httpClient, config)
 		},
-		Version: version,
+		Version: buildVersion(),
 	}
 	os.Exit(app.Run(ctx, os.Args[1:]))
+}
+
+func buildVersion() string {
+	moduleVersion := ""
+	if info, ok := debug.ReadBuildInfo(); ok {
+		moduleVersion = info.Main.Version
+	}
+	return resolveVersion(version, moduleVersion)
+}
+
+func resolveVersion(injected, module string) string {
+	if injected != "" {
+		return injected
+	}
+	if module == "" || module == "(devel)" {
+		return "dev"
+	}
+	return strings.TrimPrefix(module, "v")
 }
 
 func newProvider(httpClient *http.Client, config provider.Config) (provider.Provider, error) {
