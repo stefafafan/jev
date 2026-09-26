@@ -32,3 +32,23 @@ func TestNewProvider(t *testing.T) {
 		t.Fatal("expected unsupported provider error")
 	}
 }
+
+func TestResolveVersion(t *testing.T) {
+	tests := []struct {
+		name     string
+		injected string
+		module   string
+		want     string
+	}{
+		{"release archive", "0.1.0", "v0.1.0", "0.1.0"},
+		{"go install", "", "v0.1.0", "0.1.0"},
+		{"local build", "", "(devel)", "dev"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := resolveVersion(tt.injected, tt.module); got != tt.want {
+				t.Fatalf("resolveVersion(%q, %q) = %q, want %q", tt.injected, tt.module, got, tt.want)
+			}
+		})
+	}
+}
