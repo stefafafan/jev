@@ -99,7 +99,7 @@ The CLI supports TypeSafe AI, Cloudflare Workers AI, and Vercel AI Gateway.
 
 ```bash
 export TYPESAFE_API_KEY=...
-jev --provider typesafe noul "Is this safe?" < input.txt
+cat input.txt | jev --provider typesafe noul "Is this safe?"
 ```
 
 ### Cloudflare
