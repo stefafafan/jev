@@ -7,7 +7,7 @@ Currently supported providers:
 - Cloudflare
 - Vercel
 
-## Install
+## Installation
 
 Install via go install:
 
@@ -21,9 +21,22 @@ or build from source:
 go build -o jev .
 ```
 
-## Quick Start
+### GitHub Actions
 
-Set credentials for one provider:
+Use [`stefafafan/setup-jev`](https://github.com/stefafafan/setup-jev) to install a released `jev` binary on a GitHub Actions runner.
+
+```yaml
+- uses: stefafafan/setup-jev@ee163438b847a374ca9e4f44f08e376da69e2df9 # v1.0.0
+  with:
+    version: v0.1.1
+- run: jev --version
+```
+
+For a working CI example, see this repository's [`pr-risk.yml`](.github/workflows/pr-risk.yml) workflow. It sends a pull request diff to Jev through Cloudflare and applies a corresponding merge-risk label.
+
+## Setup
+
+Set credentials for your favorite provider:
 
 ```bash
 export TYPESAFE_API_KEY=...
