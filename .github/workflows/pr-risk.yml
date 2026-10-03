@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: stefafafan/setup-jev@ee163438b847a374ca9e4f44f08e376da69e2df9 # v1.0.0
+      - uses: stefafafan/setup-jev@68157056af19eac3d6d649efa641d1e9662b5186 # v1.0.1
         with:
           version: v0.1.1
 
